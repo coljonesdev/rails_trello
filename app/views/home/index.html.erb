@@ -80,8 +80,9 @@
                     <h2><%= list.title %></h2>
 
                     <div class="listItems">
-                        <% list.cards.each do |card| %>
-                            <div class="card"><%= card.content %></div>
+                        <% myCards = (list.cards).sort_by &:order %>
+                        <% myCards.each do |card| %>
+                            <div class="card"><%= card.content %> [order <%= card.order %>]</div>
                         <% end %>
                     </div>
                     
