@@ -68,8 +68,8 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
         $( function() {
-          $( ".list" ).sortable();
-          $( ".list" ).disableSelection();
+          $( ".listItems" ).sortable();
+          $( ".listItems" ).disableSelection();
         } );
         </script>
     </head>
@@ -79,19 +79,18 @@
                 <div class="list">
                     <h2><%= list.title %></h2>
 
-                    <% list.cards.each do |card| %>
-                        <div class="card"><%= card.content %></div>
-                    <% end %>
-    <!--Person.find(:all, :params => { :title => "CEO" })-->
-
+                    <div class="listItems">
+                        <% list.cards.each do |card| %>
+                            <div class="card"><%= card.content %></div>
+                        <% end %>
+                    </div>
+                    
                     <div class="card">
                         <form method="post" action="<%= list_cards_path(list.id) %>">
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>" />
                             <textarea cols="30" rows="3" placeholder="Enter your favorite content" name="content"></textarea>
                             <button type="submit">content!</button>
                         </form>
-                    
-                        
                     </div>
                 </div>
             <% end %>
