@@ -68,7 +68,21 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
         $( function() {
-          $( ".listItems" ).sortable();
+        //   $( ".listItems" ).sortable();
+          $( ".listItems" ).sortable({
+                start: function(event, ui) {
+                    ui.item.startPos = ui.item.index();
+                },
+                stop: function(event, ui) {
+                    let endPos = ui.item.index();
+                    // let path = "/home/reorder?" + `start=${ui.item.startPos}&dest=${endPos}`;
+                    const url = new URL(location);
+                    url.searchParams.set('reorderStart', ui.item.startPos);
+                    url.searchParams.set('reorderEnd', endPos);
+                    location = url;
+                    // go to URL "/home/reorder?start=[startPos]&dest=[endPos]"
+                }
+            });
           $( ".listItems" ).disableSelection();
         } );
         </script>
