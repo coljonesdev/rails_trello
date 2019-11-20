@@ -67,15 +67,26 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
+        function createReorderString(list_elem) {
+            let cards = list_elem.getElementsByClassName("listItems")[0].children;
+            var reorderString = "";
+
+            for(let i=0; i < cards.length; i++) {
+                if (i > 0) {
+                    reorderString += ",";
+                }
+                reorderString += cards[i].children[0].innerText;
+            }
+
+            return reorderString;
+        }
+
         $( function() {
         //   $( ".listItems" ).sortable();
           $( ".listItems" ).sortable({
-                start: function(event, ui) {
-                    ui.item.startPos = ui.item.index();
-                },
                 stop: function(event, ui) {
-                    let endPos = ui.item.index();
-                    let path = "/lists/2/reorder?" + `start=${ui.item.startPos}&end=${endPos}`;
+                    let list_id = event.target.parentElement.getElementsByClassName("list-id")[0].innerText;
+                    let path = "/lists/" + list_id + "/reorder?cardids=" + createReorderString(event.target.parentElement);
                     location = window.location.origin + path;
                 }
             });
@@ -87,13 +98,15 @@
         <div class="container">
             <% @lists.each do |list| %>
                 <div class="list">
+                    <div class="list-id" hidden><%= list.id %></div>
                     <h2><%= list.title %></h2>
 
                     <div class="listItems">
                         <% myCards = (list.cards).sort_by &:order %>
                         <% myCards.each do |card| %>
                             <div class="card">
-                                <%= card.content %> [order <%= card.order %>]
+                                <%= card.content %>
+                                <div class="card-id" hidden><%= card.id %></div>
                             </div>
                         <% end %>
                     </div>
