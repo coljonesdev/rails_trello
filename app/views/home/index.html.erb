@@ -76,10 +76,12 @@
                 stop: function(event, ui) {
                     let endPos = ui.item.index();
                     // let path = "/home/reorder?" + `start=${ui.item.startPos}&dest=${endPos}`;
-                    const url = new URL(location);
-                    url.searchParams.set('reorderStart', ui.item.startPos);
-                    url.searchParams.set('reorderEnd', endPos);
-                    location = url;
+
+                    // const url = new URL(location);
+                    // url.searchParams.set('reorderStart', ui.item.startPos);
+                    // url.searchParams.set('reorderEnd', endPos);
+                    // location = url;
+
                     // go to URL "/home/reorder?start=[startPos]&dest=[endPos]"
                 }
             });

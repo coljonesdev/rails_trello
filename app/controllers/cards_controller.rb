@@ -5,9 +5,6 @@ class CardsController < ApplicationController
         redirect_to home_index_path
     end
 
-    def reorder
-    end
-
     private
         def card_params
             params.require(:content)
